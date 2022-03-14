@@ -1,6 +1,6 @@
 const { sortData } = require("./formatData");
 
-const getAnswer = async () => {
+const strategyOne = async () => {
   const guardsArray = await sortData();
 
   guardsArray.sort((a, b) => {
@@ -19,7 +19,34 @@ const getAnswer = async () => {
 
   const answer = sleepiestMinute * sleepiestGuard.id;
 
-  console.log(answer);
+  console.log({ strategyOneAnswer: answer });
 };
 
-getAnswer();
+const strategyTwo = async () => {
+  const guardsArray = await sortData();
+
+  guardsArray.forEach((guard) => {
+    guard.sleepiestMinute = guard.minutes
+      .sort(
+        (a, b) =>
+          guard.minutes.filter((minute) => minute === a).length -
+          guard.minutes.filter((minute) => minute === b).length
+      )
+      .pop();
+    guard.sleepyMinuteCount = guard.minutes.filter(
+      (minute) => minute === guard.sleepiestMinute
+    ).length;
+  });
+
+  guardsArray.sort((a, b) => {
+    return b.sleepyMinuteCount - a.sleepyMinuteCount;
+  });
+
+  const sleepiestGuard = guardsArray[0];
+
+  const answer = sleepiestGuard.id * sleepiestGuard.sleepiestMinute;
+  console.log({ strategyTwoAnswer: answer });
+};
+
+strategyOne();
+strategyTwo();
