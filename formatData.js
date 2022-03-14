@@ -1,7 +1,7 @@
-const fs = require("fs/promises");
+const fs = require("fs");
 
-const sortData = async () => {
-  const data = await fs.readFile("./data.txt", "utf8");
+const sortData = () => {
+  const data = fs.readFileSync("./data.txt").toString();
 
   const sortedData = data.split("\n").sort((a, b) => {
     if (a > b) {
@@ -45,4 +45,6 @@ const sortData = async () => {
   return guardsArray;
 };
 
-module.exports = { sortData };
+const data = sortData();
+
+module.exports = { data };
