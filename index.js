@@ -1,6 +1,9 @@
-const { data: guardsArray } = require("./formatData");
+const { data } = require("./formatData");
+const { deepCloneGuardsArray } = require("./utils");
 
-const strategyOne = () => {
+const strategyOne = (dataArray) => {
+  const guardsArray = deepCloneGuardsArray(dataArray);
+
   guardsArray.sort((a, b) => {
     return b.minutes.length - a.minutes.length;
   });
@@ -20,7 +23,9 @@ const strategyOne = () => {
   return answer;
 };
 
-const strategyTwo = () => {
+const strategyTwo = (dataArray) => {
+  const guardsArray = deepCloneGuardsArray(dataArray);
+
   guardsArray.forEach((guard) => {
     guard.sleepiestMinute = guard.minutes
       .sort(
@@ -45,5 +50,5 @@ const strategyTwo = () => {
   return answer;
 };
 
-console.log({ strategyTwoAnswer: strategyOne() });
-console.log({ strategyTwoAnswer: strategyTwo() });
+console.log({ strategyTwoAnswer: strategyOne(data) });
+console.log({ strategyTwoAnswer: strategyTwo(data) });

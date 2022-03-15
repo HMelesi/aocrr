@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-const sortData = () => {
-  const data = fs.readFileSync("./data.txt").toString();
+const sortData = (path) => {
+  const data = fs.readFileSync(path).toString();
 
   const sortedData = data.split("\n").sort((a, b) => {
     if (a > b) {
@@ -45,6 +45,6 @@ const sortData = () => {
   return guardsArray;
 };
 
-const data = sortData();
+const data = sortData("./data.txt");
 
 module.exports = { data };
